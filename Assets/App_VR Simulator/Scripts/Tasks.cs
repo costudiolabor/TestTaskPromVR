@@ -1,16 +1,16 @@
 using System;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "Tasks", menuName = "Scriptable Objects/Tasks")]
+using UnityEngine.Serialization;
 
 [Serializable]
-public class Tasks : ScriptableObject {
-    [SerializeField] private Group[] groups;
+public class Tasks : MonoBehaviour {
+    public Group[] groups;
 }
 
 [Serializable]
 public class Group {
     public string name;
+    public int id;
     public Step[] steps;
 }
 
@@ -19,16 +19,5 @@ public class Step {
     public string description;
     public int id;
     public string expectedAction;
-    public string target;
-    public GameObject targetObj;
+    [FormerlySerializedAs("targetObj")] public StepAction targetAction;
 }
-
-// {
-//     "Group": "Проверка документов",
-//     "Steps": 
-//     [
-//     {"id": 1, "description": "...", "expectedAction": "подойти", "target": "зона1"},
-//     {"id": 2, "description": "...", "expectedAction": "граб", "target": "паспорт"},
-//     {"id": 3, "description": "...", "expectedAction": "нажать кнопку", "target": "Подтвердить"}
-//     ]
-// }

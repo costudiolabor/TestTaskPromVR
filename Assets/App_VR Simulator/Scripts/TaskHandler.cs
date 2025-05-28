@@ -3,18 +3,41 @@ using UnityEngine;
 
 [Serializable]
 public class TaskHandler {
-    [SerializeField] private Tasks tasks;
-    [SerializeField] private StepAction[] stepActions;
+    public event Action<DataStep>  StepEvent;
+    private Tasks _tasks;
+    
+    public TaskHandler(Tasks tasks) {
+        _tasks = tasks;
+        SetupGroups();
+    }
 
-    public void Initialize() {
-        for (int i = 0; i  < stepActions.Length; i ++) {
-            stepActions[i].Initialize(0);
-            stepActions[i].StepEvent += OnStepAction;
+    private void SetupGroups() {
+        int amountGroups = _tasks.groups.Length;
+        for (int i = 0; i  < amountGroups; i ++) {
+            int idGroup = i + 1;
+            _tasks.groups[i].id = idGroup;
+            SetupSteps(_tasks.groups[i]);
         }
     }
 
-    private void OnStepAction(int id) {
-        Debug.Log("OnStepAction " + id);
+    private void SetupSteps(Group group) {
+        int amountSteps = group.steps.Length;
+        for (int i = 0; i  < amountSteps; i ++) {
+            int idStep = i + 1;
+            group.steps[i].id = idStep;
+            DataStep dataStep = new DataStep() {
+                idGroup = group.id,
+                idStep = idStep
+            };
+
+            group.steps[i].targetAction.Initialize(dataStep);
+            group.steps[i].targetAction.StepEvent += OnStepAction;
+        }
     }
     
+    private void OnStepAction(DataStep dataStep) {
+        StepEvent?.Invoke(dataStep);
+    }
+
+    public Group[] GetGroups() => _tasks.groups;
 }

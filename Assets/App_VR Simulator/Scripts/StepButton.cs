@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class StepButton : StepAction {
     [SerializeField] private Button button;
 
-    public override void Initialize(int id) {
+    public override void Initialize(DataStep dataStep) {
         button.onClick.AddListener(OnClick);
-        base.Initialize(id);
+        base.Initialize(dataStep);
     }
 
     private void OnClick() { OnStepAction(); }

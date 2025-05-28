@@ -2,15 +2,22 @@ using System;
 using UnityEngine;
 
 public abstract class StepAction : MonoBehaviour{
-    [SerializeField] private int id;
+    private DataStep _dataStep;
     
-    public event Action<int>  StepEvent;
+    public event Action<DataStep>  StepEvent;
     private bool _isDone = false;
-    public virtual void Initialize(int id) { }
+
+    public virtual void Initialize(DataStep dataStep) {
+        _dataStep = dataStep;
+    }
 
     protected void OnStepAction() {
         if (_isDone) return;
         _isDone = true;
-        StepEvent?.Invoke(id);
+        StepEvent?.Invoke(_dataStep);
+    }
+
+    private void OnDestroy() {
+        StepEvent = null;
     }
 }

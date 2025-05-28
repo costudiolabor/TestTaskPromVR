@@ -5,10 +5,10 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class StepGrab : StepAction {
     [SerializeField] private XRGrabInteractable grabInteractable;  
     
-    public override void Initialize(int id) {
+    public override void Initialize(DataStep dataStep) {
         grabInteractable.selectEntered.AddListener(OnGrabbed);
         grabInteractable.selectExited.AddListener(OnReleased);
-        base.Initialize(id);
+        base.Initialize(dataStep);
     }
 
     private void OnGrabbed(SelectEnterEventArgs args) {
