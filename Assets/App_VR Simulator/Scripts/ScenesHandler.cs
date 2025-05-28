@@ -5,9 +5,7 @@ using UnityEngine.SceneManagement;
 [Serializable]
 public class ScenesHandler {
     [SerializeField] private int numberMainScene;
-
-    public void LoadMainScene() {
+    public void LoadScene() {
         SceneManager.LoadScene(numberMainScene);
     }
-    
 }

@@ -19,7 +19,7 @@ public class EntryLobby : MonoBehaviour {
     
     private void OnClickStart() {
         Debug.Log("OnClickStart");
-        scenesHandler.LoadMainScene();
+        scenesHandler.LoadScene();
     }
 
     private void Subscription() {
