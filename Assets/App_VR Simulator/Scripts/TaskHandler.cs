@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 [Serializable]
 public class TaskHandler {
@@ -8,14 +7,14 @@ public class TaskHandler {
     
     public TaskHandler(Tasks tasks) {
         _tasks = tasks;
-        SetupGroups();
+        //SetupGroups();
     }
 
-    private void SetupGroups() {
+    public void SetupGroups() {
         int amountGroups = _tasks.groups.Length;
         for (int i = 0; i  < amountGroups; i ++) {
             int idGroup = i + 1;
-            _tasks.groups[i].id = idGroup;
+            _tasks.groups[i].ID = idGroup;
             SetupSteps(_tasks.groups[i]);
         }
     }
@@ -24,9 +23,9 @@ public class TaskHandler {
         int amountSteps = group.steps.Length;
         for (int i = 0; i  < amountSteps; i ++) {
             int idStep = i + 1;
-            group.steps[i].id = idStep;
+            group.steps[i].ID = idStep;
             DataStep dataStep = new DataStep() {
-                idGroup = group.id,
+                idGroup = group.ID,
                 idStep = idStep
             };
 
