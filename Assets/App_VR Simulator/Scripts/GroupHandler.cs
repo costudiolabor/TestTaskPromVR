@@ -92,6 +92,7 @@ public class GroupHandler {
     private void CheckCorrectGroup(DataStep dataStep) {
         int idGroup = dataStep.idGroup;
         int idStep = dataStep.idStep;
+        if (_currentGroup >= _groups.Length) return;
         if (idGroup == _groups[_currentGroup].ID)
             CheckCorrectStep(idStep);
         else
@@ -111,29 +112,11 @@ public class GroupHandler {
     private void OnCorrectAction() {
         CorrectEvent?.Invoke();
         SetStateTaskAndStep(true);
-        // _itemSteps[_currentStep].SetState(true);
-        // SetStateInTasks(_groups[_currentGroup].steps[_currentStep], true);
-        // _itemSteps[_currentStep].SetSelected(false);
-        // _currentStep++;
-        // if (_currentStep == _amountStepInGroup) {
-        //     NextGroups();
-        //     return;
-        // }
-        // _itemSteps[_currentStep].SetSelected(true);
     }
     
     private void OnInCorrectAction() {
         InCorrectEvent?.Invoke();
         SetStateTaskAndStep(false);
-        // _itemSteps[_currentStep].SetState(false);
-        // SetStateInTasks(_groups[_currentGroup].steps[_currentStep], false);
-        // _itemSteps[_currentStep].SetSelected(false);
-        // _currentStep++;
-        // if (_currentStep == _amountStepInGroup) {
-        //     NextGroups();
-        //     return;
-        // }
-        // _itemSteps[_currentStep].SetSelected(true);
     }
 
     private void SetStateTaskAndStep(bool state) {

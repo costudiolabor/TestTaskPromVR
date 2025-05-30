@@ -12,7 +12,7 @@ public abstract class StepAction : MonoBehaviour{
     }
 
     protected void OnStepAction() {
-        if (_isDone) return;
+        //if (_isDone) return;
         _isDone = true;
         StepEvent?.Invoke(_dataStep);
     }

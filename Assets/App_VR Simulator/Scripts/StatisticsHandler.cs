@@ -10,6 +10,8 @@ public class StatisticsHandler {
     private NameGroup _prefabNameGroup;
     private ItemStep _prefabItemStep;
     
+    public event Action LobbyEvent, RestartEvent;
+    
     public void Initialize(Factory factory, PrefabsUI prefabsUI, Group[] groups, Transform camera) {
         _factory = factory;
         _prefabNameGroup = prefabsUI.PrefabNameGroup;
@@ -19,6 +21,7 @@ public class StatisticsHandler {
         _groups = groups;
         _parent = _panel.GetParent();
         _panel.Hide();
+        Subscription();
     }
 
     private PanelStatistics GetPanel(PanelStatistics prefab) {
@@ -69,6 +72,25 @@ public class StatisticsHandler {
                 itemStep.SetState(false);
                 break;
         }
+    }
+    
+    private void OnLobbyClick() {
+        LobbyEvent?.Invoke();
+    }
+
+    private void OnRestartClck() {
+        RestartEvent?.Invoke();
+    }
+
+    
+    private void Subscription() {
+        _panel.LobbyEvent += OnLobbyClick;
+        _panel.RestartEvent += OnRestartClck;
+    }
+
+    public void UnSubscription() {
+        _panel.LobbyEvent -= OnLobbyClick;
+        _panel.RestartEvent -= OnRestartClck;
     }
     
 }

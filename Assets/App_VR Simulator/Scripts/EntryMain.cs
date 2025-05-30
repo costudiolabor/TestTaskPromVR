@@ -90,6 +90,8 @@ public class EntryMain : MonoBehaviour {
         _groupHandler.CorrectEvent += OnCorrectAction;
         _groupHandler.InCorrectEvent += OnInCorrectAction;
         _groupHandler.FinishEvent += OnFinish;
+        _statisticsHandler.RestartEvent += OnRestart;
+        _statisticsHandler.LobbyEvent += OnLobby;
     }
   
     private void UnSubscription() {
@@ -100,6 +102,9 @@ public class EntryMain : MonoBehaviour {
         _groupHandler.CorrectEvent -= OnCorrectAction;
         _groupHandler.InCorrectEvent -= OnInCorrectAction;
         _groupHandler.FinishEvent -= OnFinish;
+        _statisticsHandler.RestartEvent -= OnRestart;
+        _statisticsHandler.LobbyEvent -= OnLobby;
+        _statisticsHandler.UnSubscription();
     }
 
     private void OnDestroy() { 
