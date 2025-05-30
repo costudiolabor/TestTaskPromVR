@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa9035bc6008d244bba8ff9da5fdcb2, type: 3}
+  m_Name: PrefabsUI
+  m_EditorClassIdentifier: 
+  prefabMenuLobby: {fileID: 6130428183517665068, guid: 604c1889cd083564e8f5ba849c3c41e2, type: 3}
+  prefabMenuGame: {fileID: 6586365931510545723, guid: 4e6c6bb307d0c6a4380246c77da75267, type: 3}
+  prefabPanelGroup: {fileID: 1508621083377055963, guid: 97c4adb79c851554383dc7b78fa1a249, type: 3}
+  prefabItemStep: {fileID: 4818467544454659255, guid: 96c5b1b0ac5977c48bcdf20b38f5cd07, type: 3}
+  prefabPanelStatistics: {fileID: 1147789375687959874, guid: 414750845b441b445bf31a0f32a2df6e, type: 3}
+  prefabNameGroup: {fileID: 4795391686740000282, guid: ab7feb0604e7fe94a8ca210e7a944fbe, type: 3}

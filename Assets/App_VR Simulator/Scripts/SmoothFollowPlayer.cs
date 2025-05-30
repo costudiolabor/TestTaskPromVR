@@ -1,12 +1,16 @@
 using UnityEngine;
 
 public class SmoothFollowPlayer : MonoBehaviour {
-    [SerializeField] private Transform playerCamera;
     [SerializeField] private float followSpeed = 8f;
     [SerializeField] private Vector3 positionOffset = new Vector3(0, -0.2f, 1.2f);
     [SerializeField] private bool facePlayer = true;
     
+    private Transform playerCamera;
+    
+    public void SetCamera(Transform camera) { playerCamera = camera; }
+    
     private void Update() {
+        if (!playerCamera) return;
         Vector3 targetPosition = playerCamera.position
                                  + playerCamera.forward * positionOffset.z
                                  + playerCamera.right * positionOffset.x
@@ -19,5 +23,6 @@ public class SmoothFollowPlayer : MonoBehaviour {
             transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + 180, 0);
         }
     }
+
     
 }

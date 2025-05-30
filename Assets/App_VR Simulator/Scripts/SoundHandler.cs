@@ -3,16 +3,22 @@ using System;
 
 [Serializable]
 public class SoundHandler {
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip clipCorrect;
-    [SerializeField] private AudioClip clipWrong;
-    
+    private AudioClip _clipCorrect;
+    private AudioClip _clipWrong;
+    private AudioSource _audioSource;
+
+    public SoundHandler(AudioSource audioSource, AudioResources audioResources) {
+        _audioSource = audioSource;
+        _clipCorrect = audioResources.ClipCorrect;
+        _clipWrong = audioResources.ClipInCorrect;
+    }
+
     public void PlayCorrect() {
-        audioSource.PlayOneShot(clipCorrect);
+        _audioSource.PlayOneShot(_clipCorrect);
     }
 
     public void PlayInCorrect() {
-        audioSource.PlayOneShot(clipWrong);
+        _audioSource.PlayOneShot(_clipWrong);
     }
     
  }

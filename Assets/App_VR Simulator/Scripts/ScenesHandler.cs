@@ -1,11 +1,18 @@
 using System;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [Serializable]
 public class ScenesHandler {
-    [SerializeField] private int numberMainScene;
-    public void LoadScene() {
-        SceneManager.LoadScene(numberMainScene);
+    private SettingScenes _settingScenes;
+
+    public ScenesHandler(SettingScenes settingScenes) {
+        _settingScenes = settingScenes;
+    }
+    public void LoadLobby() {
+        SceneManager.LoadScene(_settingScenes.LobbyScene);
+    }
+
+    public void LoadMain() {
+        SceneManager.LoadScene(_settingScenes.MainScene);
     }
 }

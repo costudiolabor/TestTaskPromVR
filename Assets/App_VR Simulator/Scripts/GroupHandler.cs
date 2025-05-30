@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System;
+using UnityEngine;
 
 [Serializable]
 public class GroupHandler {
-    [SerializeField] private PanelGroup panelGroup;
-    [SerializeField] private ItemStep prefabItemStep;
-    
+    private PanelGroup _panelGroup;
     private List<ItemStep> _itemSteps;
     private int _currentGroup;
     private int _currentStep;
@@ -14,19 +12,26 @@ public class GroupHandler {
     private Group[] _groups;
     private int _amountStepInGroup;
     private Factory _factory;
-    
+    private ItemStep _prefabItemStep;
     public event Action CorrectEvent, InCorrectEvent, FinishEvent;
     
-    public void Initialize(Factory factory) {
+    public void Initialize(Factory factory, ItemStep prefabItemStep, PanelGroup prefabPanelGroup, Transform camera) {
         _factory = factory;
+        _prefabItemStep = prefabItemStep;
         _currentGroup = 0;
         _currentStep = 0;
+        _panelGroup = GetPanelGroup(prefabPanelGroup);
+        _panelGroup.Initialize(camera);
         CreateGroup();
-        panelGroup.Show();
+        _panelGroup.Show();
     }
 
+    private PanelGroup GetPanelGroup(PanelGroup panelGroup) {
+         return _factory.Get(panelGroup, null);
+    }
+    
     public void HidePanelGroup() {
-        panelGroup.Hide();
+        _panelGroup.Hide();
     }
     
     private void CreateGroup() {
@@ -36,7 +41,7 @@ public class GroupHandler {
             _itemSteps.Add(itemStep);
         }
     }
-    private ItemStep CreateItem() { return _factory.Get(prefabItemStep, panelGroup.GetParent()); }
+    private ItemStep CreateItem() { return _factory.Get(_prefabItemStep, _panelGroup.GetParent()); }
 
     public void SetGroups(Group[] groups) {
         _groups = groups;
@@ -71,7 +76,7 @@ public class GroupHandler {
     
     private void SetDataItems(Group group) {
         string groupName = group.name;
-        panelGroup.SetTitle(groupName);
+        _panelGroup.SetTitle(groupName);
         _amountStepInGroup = group.steps.Length;
         for (int i = 0; i < _amountStepInGroup; i++) {
             _itemSteps[i].SetDescription(group.steps[i].description);

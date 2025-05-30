@@ -3,23 +3,31 @@ using System;
 
 [Serializable]
 public class StatisticsHandler {
-    [SerializeField] private PanelStatistics panelStatistics;
-    [SerializeField] private NameGroup prefabNameGroup;
-    [SerializeField] private ItemStep prefabItemStep;
     private Group[] _groups;
     private Factory _factory;
     private Transform _parent;
+    private PanelStatistics _panel;
+    private NameGroup _prefabNameGroup;
+    private ItemStep _prefabItemStep;
     
-    public void Initialize(Factory factory, Group[] groups) {
+    public void Initialize(Factory factory, PrefabsUI prefabsUI, Group[] groups, Transform camera) {
         _factory = factory;
+        _prefabNameGroup = prefabsUI.PrefabNameGroup;
+        _prefabItemStep = prefabsUI.PrefabItemStep;
+        _panel = GetPanel(prefabsUI.PrefabPanelStatistics);
+        _panel.Initialize(camera);
         _groups = groups;
-        _parent = panelStatistics.GetParent();
-        panelStatistics.Hide();
+        _parent = _panel.GetParent();
+        _panel.Hide();
     }
 
+    private PanelStatistics GetPanel(PanelStatistics prefab) {
+        return _factory.Get(prefab, null);
+    }
+    
     public void ShowStatistics() {
         CreateGroup();
-        panelStatistics.Show();
+        _panel.Show();
     }
 
     private void CreateGroup() {
@@ -38,12 +46,11 @@ public class StatisticsHandler {
     }
 
     private NameGroup CreateItemGroup() {
-        return _factory.Get(prefabNameGroup, _parent);
+        return _factory.Get(_prefabNameGroup, _parent);
     }
     
     private ItemStep CreateItemStep() {
-        //return Object.Instantiate(prefabItemStep, panelStatistics.GetParent());
-        return _factory.Get(prefabItemStep, _parent);
+        return _factory.Get(_prefabItemStep, _parent);
     }
 
     private void SetupItemStep(ItemStep itemStep, Step step) {

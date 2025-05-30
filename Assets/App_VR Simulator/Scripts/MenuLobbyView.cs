@@ -2,11 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuView : View {
+public class MenuLobbyView : View {
+    [SerializeField] private SmoothFollowPlayer smoothFollowPlayer;
     [SerializeField] private Button buttonStart;
 
     public event Action StartEvent;
-    public void Initialize() {
+    public void Initialize(Transform camera) {
+        smoothFollowPlayer.SetCamera(camera);
         Subscription();
     }
 

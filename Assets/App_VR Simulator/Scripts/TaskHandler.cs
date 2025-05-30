@@ -7,7 +7,6 @@ public class TaskHandler {
     
     public TaskHandler(Tasks tasks) {
         _tasks = tasks;
-        //SetupGroups();
     }
 
     public void SetupGroups() {
